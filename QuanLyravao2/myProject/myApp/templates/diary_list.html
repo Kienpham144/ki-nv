@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Trang Chủ{% endblock %}
+
+{% block content %}
+
+<h1 style="text-align: center; color: #1a5d1a; margin-bottom: 2rem; text-transform: uppercase;">Danh sách nhật ký</h1>
+<div class="card-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+    <table class="table">
+        <caption></caption>
+        <thead>
+          <tr>
+            <th scope="col">Họ Và Tên</th>
+            <th scope="col">Nội Dung</th>
+            <th scope="col">Ngày</th>
+            <th scope="col">Điểm</th>
+            <th scope="col">Loại</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if diary_list %}
+            {% for item in diary_list %}
+              <tr>
+                <td>{{ item.Ten }}</td>
+                <td>{{ item.Noi_dung }}</td>
+                <td>{{ item.Ngay_dang_ky }}</td>
+                <td>{{ item.Diem }}</td>
+                {% if item.is_vipham %}
+                  <td>Điểm trừ</td>
+                {% else %}
+                  <td>Điểm cộng</td>
+                {% endif %}
+              </tr>
+            {% endfor %}
+          {% else %}
+            <tr>
+              <td colspan="5" style="text-align: center;">Không có nhật ký nào</td>
+            </tr>
+          {% endif %}
+        </tbody>
+      </table>
+
+</div>
+{% endblock content %}

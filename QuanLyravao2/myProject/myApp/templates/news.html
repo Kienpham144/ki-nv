@@ -1,0 +1,26 @@
+{% extends "base3.html" %}
+
+{% block title %}
+Danh Sách Tin Tức
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Danh Sách Tin Tức</h1>
+    <ul class="news-list">
+        {% for news in news_items %}
+            <li class="news-item">
+                {% if news.image_url %}
+                    <img src="{{ news.image_url }}" alt="Image" class="news-image">
+                {% endif %}
+                <div class="news-content">
+                    <h3 class="news-title">{{ news.title }}</h3>
+                    <p class="news-excerpt">{{ news.content|truncatewords:10000 }}</p> <!-- Hiển thị 30 từ đầu tiên -->
+                    <a href="{{ news.link }}" target="_blank" class="news-link">Đọc thêm</a>
+                    <p class="news-date"><strong>{{ news.post_date|date:"Y-m-d" }}</strong></p>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

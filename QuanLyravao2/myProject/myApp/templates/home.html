@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}Trang Chủ{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+    <div style="padding: 10px; background-color: #d4edda; border: 1px solid #c3e6cb; color: #155724; margin-bottom: 20px;">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+{% endif %}
+
+
+<body>
+<header>
+    <nav>
+        <a href="{% url 'home' %}" class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Logo_TSQTT.png/329px-Logo_TSQTT.png" alt="Logo">
+            HỆ THỐNG ĐĂNG KÝ RA VÀO DOANH TRẠI
+        </a>
+        <ul>
+            <li>
+                <a href="{% url 'home' %}">
+                    <i class="fas fa-home"></i> Trang Chủ
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'login' %}">
+                    <i class="fas fa-sign-in-alt"></i> Đăng Xuất
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <i class="fas fa-info-circle"></i> Thông tin
+                </a>
+            </li>
+
+            <li>
+
+                <i class="fas fa-user-cog"></i> <i class="fas fa-shield-alt" style="color: blue;"></i>{{ request.user.username}} </li>
+        </ul>
+    </nav>
+</header>
+</body>
+
+<h1 style="text-align: center; color: #1a5d1a; margin-bottom: 2rem; text-transform: uppercase;">Chào Mừng Đến Với Trang Chủ Hệ Thống</h1>
+<div class="card-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+
+    
+    <div class="card" style="background-color: white; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 1.5rem; border: 2px solid #1a5d1a;">
+        <img src="https://img.baocaovien.vn///MediaUpload/Org/2024/07/30/A00230072024.jpg" alt="Danh sách đăng ký" class="img-fluid mb-3" style="border-radius: 0.5rem; max-width: 100%;">
+        <h2 style="color: #1a5d1a; text-transform: uppercase;">Danh sách đăng kí</h2>
+        <ul>
+            <li>Danh sách cập nhật những đồng chí đã được hệ thống phê duyệt và không phê duyệt dựa trên các lỗi hoặc thành tích trong thời gian qua</li>
+            
+        </ul>
+        <a href="{%url 'waiting'%}" class="button">Xem kết quả</a>
+    </div>
+
+    <div class="card" style="background-color: white; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 1.5rem; border: 2px solid #1a5d1a;">
+        <img src="https://phongkhongkhongquan.vn/Images/image/Nam%202022/Thang%204/11-4%20BAN%20DAN%20THAT.jpg" alt="Danh sách đăng ký" class="img-fluid mb-3" style="border-radius: 0.5rem; max-width: 100%;">
+        <h2 style="color: #1a5d1a; text-transform: uppercase;">Danh sách nhật ký</h2>
+        <ul>
+            <li>Danh sách cập nhật các lỗi vi phạm và thành tích cơ sở để hệ thống phê duyệt hoặc không duyệt</li>
+        </ul>
+        <a href="{%url 'diary_list'%}" class="button">Xem nhật ký</a>
+    </div>
+
+    <div class="card" style="background-color: white; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 1.5rem; border: 2px solid #1a5d1a;">
+        <img src="https://mediafile.qdnd.vn//images/2024/7/1/8_van-dong-doi-hinh.jpg" alt="Danh sách đăng ký" class="img-fluid mb-3" style="border-radius: 0.5rem; max-width: 100%;">
+        <h2 style="color: #1a5d1a; text-transform: uppercase;">Cập nhật nhật ký</h2>
+        <ul>
+            <li>Cán bộ sẽ cập nhật các lỗi hoặc thành tích và gửi lên danh sách nhật ký</li>
+            
+        </ul>
+        <a href="{%url 'diary_form'%}" class="button">Cập nhật</a>
+    </div>
+
+    <div class="card" style="background-color: white; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 1.5rem; border: 2px solid #1a5d1a;">
+        <img src="https://sohanews.sohacdn.com/2013/1382348930639.jpg" alt="Danh sách đăng ký" class="img-fluid mb-3" style="border-radius: 0.5rem; max-width: 100%;">
+        <h2 style="color: #1a5d1a; text-transform: uppercase;">Hướng dẫn </h2>
+        <ul>
+            <li>Các đồng chí hãy đọc hướng dẫn để đăng ký đúng </li>
+        </ul>
+        <a href="{%url 'add_ds_lop'%}" class="button">Thêm danh sách lớp</a>
+    </div>
+
+    <div class="card" style="background-color: white; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 1.5rem; border: 2px solid #1a5d1a;">
+        <img src="https://media-cdn-v2.laodong.vn/Storage/NewsPortal/2019/12/20/773555/1-01.JPG" alt="Danh sách đăng ký" class="img-fluid mb-3" style="border-radius: 0.5rem; max-width: 100%;">
+        <h2 style="color: #1a5d1a; text-transform: uppercase;">Danh sách lớp</h2>
+        <ul>
+            <li>Đọc kỹ nội quy và chấp hành trước khi ra ngoài doanh trại </li>
+        </ul>
+        <a href="{%url 'ds_lop_list'%}" class="button">Xem danh sách lớp</a>      
+    </div>
+
+
+    <div class="card" style="background-color: white; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 1.5rem; border: 2px solid #1a5d1a;">
+        <img src="https://media.qdnd.vn/Images/QDND-Online.png" alt="Danh sách đăng ký" class="img-fluid mb-3" style="border-radius: 0.5rem; max-width: 100%;">
+        <h2 style="color: #1a5d1a; text-transform: uppercase;">Tin tức</h2>
+        <ul>
+            <li>Đọc kỹ nội quy và chấp hành trước khi ra ngoài doanh trại </li>
+        </ul>
+        <a href="{%url 'create_news'%}" class="button">Đăng tin tức</a>      
+    </div>
+</div>
+{% endblock %}

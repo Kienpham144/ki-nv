@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm danh sách lớp</title>
+    <style>
+        /* Toàn bộ trang */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #eaece5; /* Màu nền nhạt */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header */
+        header {
+            background-color: #2c5f2d; /* Màu xanh quân đội */
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Container chính */
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff; /* Màu nền trắng */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: 2px solid #2c5f2d; /* Viền quân đội */
+        }
+
+        /* Tiêu đề */
+        h2 {
+            text-align: center;
+            color: #2c5f2d;
+            font-weight: bold;
+        }
+
+        /* Form */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form label {
+            margin: 10px 0 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        form input, form select, form textarea {
+            padding: 10px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        form button {
+            background-color: #2c5f2d;
+            color: white;
+            font-size: 16px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        form button:hover {
+            background-color: #3c7f3d;
+        }
+
+        /* Link trở lại */
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #2c5f2d;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+
+{% if messages %}
+    <div style="padding: 10px; background-color: #d4edda; border: 1px solid #c3e6cb; color: #155724; margin-bottom: 20px;">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+{% endif %}
+
+
+<div style="display: flex; align-items: center; margin-bottom: 20px;">
+    <!-- Biểu tượng trang chủ -->
+    <a href="{% url 'home' %}" style="text-decoration: none; color: #2c5f2d; font-weight: bold; display: flex; align-items: center;">
+        <img src="https://files.oaiusercontent.com/file-hoTSd9PAHeWu3U4QkHyRO5BE?se=2024-11-18T03%3A50%3A53Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D2f5076ee-59f6-4044-9e2f-3938133b90dd.webp&sig=c8XtxzJvFhmfTmktfK/oQ%2BlTZHIcUMmrA5z6B7P7XWU%3D" alt="Trang chủ" style="width: 24px; height: 24px; margin-right: 8px;">
+        Trang chủ
+    </a>
+</div>
+<body>
+    <div class="container">
+        <h2>Thêm danh sách lớp</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }} <!-- Hiển thị form -->
+            <button type="submit">Lưu</button>
+        </form>
+        <a href="{% url 'ds_lop_list' %}" class="back-link">← Trở lại danh sách lớp</a>
+    </div>
+</body>
+</html>

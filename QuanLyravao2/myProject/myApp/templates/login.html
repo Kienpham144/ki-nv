@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Đăng Nhập{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 400px; background-color: rgba(245, 245, 220, 0.9); padding: 2rem; border-radius: 10px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);">
+    <div class="logo">
+        <!-- Replace with actual military insignia -->
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Logo_TSQTT.png/329px-Logo_TSQTT.png" alt="Quân Đội Việt Nam">
+    </div>
+    <h1 style="color: #2a3e24; text-align: center; margin-bottom: 2rem;">Đăng Nhập</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div style="margin-bottom: 1rem;">
+            <label for="username" style="color: #2a3e24; font-weight: bold;">Tên Đăng Nhập:</label>
+            <input type="text" id="username" name="username" required style="padding: 0.8rem; width: 100%; border: 2px solid #2a3e24; border-radius: 5px; background-color: #f5f5dc;">
+        </div>
+        <div style="margin-bottom: 1rem;">
+            <label for="password" style="color: #2a3e24; font-weight: bold;">Mật Khẩu:</label>
+            <input type="password" id="password" name="password" required style="padding: 0.8rem; width: 100%; border: 2px solid #2a3e24; border-radius: 5px; background-color: #f5f5dc;">
+        </div>
+        <button type="submit" style="padding: 1rem; width: 100%; background-color: #2a3e24; color: #f5f5dc; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Đăng Nhập</button>
+    </form>
+
+    
+    {% if messages %}
+        <div style="margin-top: 1rem; color: red; text-align: center;">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

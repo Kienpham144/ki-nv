@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đua Xe Quân Đội</title>
+    <style>
+        :root {
+            --primary-color: #1a5d1a;
+            --secondary-color: #da251d;
+            --accent-color: #ffff00;
+            --text-color: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--secondary-color);
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        #gameArea {
+            width: 800px;
+            height: 400px;
+            background-color: #333;
+            position: relative;
+            overflow: hidden;
+            border: 5px solid var(--accent-color);
+        }
+
+        #player {
+            width: 50px;
+            height: 80px;
+            background-color: var(--secondary-color);
+            position: absolute;
+            bottom: 0;
+            left: 375px;
+            transition: left 0.1s ease-out;
+        }
+
+        .obstacle {
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent-color);
+            position: absolute;
+            top: -50px;
+        }
+
+        #score, #boost, #shield {
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
+
+        #startButton {
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        #startButton:hover {
+            background-color: var(--accent-color);
+            color: #000;
+        }
+
+        #controls {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        @media (max-width: 820px) {
+            #gameArea {
+                width: 100%;
+                height: 300px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Đua Xe Quân Đội</h1>
+    </header>
+    <div id="gameArea">
+        <div id="player"></div>
+    </div>
+    <div id="score">Điểm: <span id="scoreValue">0</span></div>
+    <div id="boost">Tăng tốc: <span id="boostValue">100</span>%</div>
+    <div id="shield">Khiên: <span id="shieldStatus">Không hoạt động</span></div>
+    <button id="startButton">Bắt Đầu</button>
+    <div id="controls">
+        <p>Sử dụng phím mũi tên trái và phải để di chuyển</p>
+        <p>Nhấn phím cách để sử dụng Tăng tốc</p>
+        <p>Nhấn 'S' để kích hoạt Khiên</p>
+    </div>
+
+    <script>
+        const gameArea = document.getElementById('gameArea');
+        const player = document.getElementById('player');
+        const scoreValue = document.getElementById('scoreValue');
+        const boostValue = document.getElementById('boostValue');
+        const shieldStatus = document.getElementById('shieldStatus');
+        const startButton = document.getElementById('startButton');
+
+        let score = 0;
+        let gameLoop;
+        let playerPosition = 375;
+        let obstacles = [];
+        let boost = 100;
+        let shield = false;
+        let gameActive = false;
+
+        function movePlayer(e) {
+            if (!gameActive) return;
+
+            if (e.key === 'ArrowLeft' && playerPosition > 0) {
+                playerPosition = Math.max(playerPosition - 10, 0);
+            } else if (e.key === 'ArrowRight' && playerPosition < 750) {
+                playerPosition = Math.min(playerPosition + 10, 750);
+            } else if (e.key === ' ' && boost >= 20) {
+                activateBoost();
+            } else if (e.key === 'S' && !shield) {
+                activateShield();
+            }
+            player.style.left = playerPosition + 'px';
+        }
+
+        function createObstacle() {
+            const obstacle = document.createElement('div');
+            obstacle.classList.add('obstacle');
+            obstacle.style.left = Math.random() * (gameArea.offsetWidth - 50) + 'px';
+            gameArea.appendChild(obstacle);
+            obstacles.push(obstacle);
+        }
+
+        function moveObstacles() {
+            obstacles.forEach((obstacle, index) => {
+                let top = obstacle.offsetTop;
+                top += 5;
+                obstacle.style.top = top + 'px';
+
+                if (top > gameArea.offsetHeight) {
+                    obstacle.remove();
+                    obstacles.splice(index, 1);
+                    score++;
+                    scoreValue.textContent = score;
+                }
+
+                if (isColliding(player, obstacle) && !shield) {
+                    endGame();
+                }
+            });
+        }
+
+        function isColliding(a, b) {
+            const aRect = a.getBoundingClientRect();
+            const bRect = b.getBoundingClientRect();
+
+            return !(
+                aRect.top + aRect.height < bRect.top ||
+                aRect.top > bRect.top + bRect.height ||
+                aRect.left + aRect.width < bRect.left ||
+                aRect.left > bRect.left + bRect.width
+            );
+        }
+
+        function gameUpdate() {
+            moveObstacles();
+            if (Math.random() < 0.02) {
+                createObstacle();
+            }
+            boost = Math.min(boost + 0.5, 100);
+            boostValue.textContent = Math.floor(boost);
+        }
+
+        function startGame() {
+            if (gameActive) return;
+
+            score = 0;
+            scoreValue.textContent = score;
+            obstacles.forEach(obstacle => obstacle.remove());
+            obstacles = [];
+            playerPosition = 375;
+            player.style.left = playerPosition + 'px';
+            boost = 100;
+            boostValue.textContent = boost;
+            shield = false;
+            shieldStatus.textContent = 'Không hoạt động';
+            gameLoop = setInterval(gameUpdate, 50);
+            gameActive = true;
+            startButton.textContent = 'Đang chơi';
+            document.addEventListener('keydown', movePlayer);
+        }
+
+        function endGame() {
+            clearInterval(gameLoop);
+            gameActive = false;
+            alert('Trò chơi kết thúc! Điểm của bạn: ' + score);
+            startButton.textContent = 'Bắt Đầu';
+            document.removeEventListener('keydown', movePlayer);
+        }
+
+        function activateBoost() {
+            boost -= 20;
+            boostValue.textContent = Math.floor(boost);
+            playerPosition += Math.random() > 0.5 ? -100 : 100;
+            playerPosition = Math.max(0, Math.min(750, playerPosition));
+            player.style.left = playerPosition + 'px';
+        }
+
+        function activateShield() {
+            shield = true;
+            player.style.backgroundColor = 'blue';
+            shieldStatus.textContent = 'Đang hoạt động';
+            setTimeout(() => {
+                shield = false;
+                player.style.backgroundColor = 'var(--secondary-color)';
+                shieldStatus.textContent = 'Không hoạt động';
+            }, 3000);
+        }
+
+        startButton.addEventListener('click', startGame);
+    </script>
+</body>
+</html>

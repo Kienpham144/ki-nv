@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Danh sách lớp{% endblock %}
+
+{% block content %}
+
+
+{% if messages %}
+    <div style="padding: 10px; background-color: #d4edda; border: 1px solid #c3e6cb; color: #155724; margin-bottom: 20px;">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+{% endif %}
+
+<div style="display: flex; align-items: center; margin-bottom: 20px;">
+    <!-- Biểu tượng trang chủ -->
+    <a href="{% url 'home' %}" style="text-decoration: none; color: #2c5f2d; font-weight: bold; display: flex; align-items: center;">
+        <img src="https://files.oaiusercontent.com/file-hoTSd9PAHeWu3U4QkHyRO5BE?se=2024-11-18T03%3A50%3A53Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D2f5076ee-59f6-4044-9e2f-3938133b90dd.webp&sig=c8XtxzJvFhmfTmktfK/oQ%2BlTZHIcUMmrA5z6B7P7XWU%3D" alt="Trang chủ" style="width: 24px; height: 24px; margin-right: 8px;">
+        Trang chủ
+    </a>
+</div>  
+
+    <h2>Danh sách lớp</h2>
+    <table border="1" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr style="background-color: #2c5f2d; color: white;">
+                <th>Mã học viên</th>
+                <th>Tên</th>
+                <th>Đơn vị</th>
+                <th>Ngày sinh</th>
+                <th>Quê quán</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in ds_lop %}
+                <tr style="text-align: center;">
+                    <td>{{ item.Ma_hv }}</td>
+                    <td>{{ item.Ten }}</td>
+                    <td>{{ item.Don_vi }}</td>
+                    <td>{{ item.Ngay_sinh }}</td>
+                    <td>{{ item.Que_quan }}</td>
+                    <td>
+                        <!-- Thêm nút xóa -->
+                        <form method="post" action="{% url 'delete_ds_lop' item.Ma_hv %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" style="background-color: red; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">Xóa</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

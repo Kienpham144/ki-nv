@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Tin Tức</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("https://www.shutterstock.com/shutterstock/photos/485390743/display_1500/stock-vector-old-newspaper-vintage-design-retro-background-vector-template-with-text-and-images-485390743.jpg");
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #1a5d1a;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .home-button:hover {
+            background-color: #134e13;
+        }
+
+        .home-button i {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+
+        .form-container {
+            background-color: #bad1a5;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a5d1a;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #1a5d1a;
+            box-shadow: 0 0 4px rgba(26, 93, 26, 0.5);
+        }
+
+        button {
+            padding: 0.75rem;
+            background-color: #1a5d1a;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #134e13;
+        }
+    </style>
+</head>
+<body>
+    <!-- Nút Home -->
+    <a href="{%url 'home'%}"  class="home-button">
+        <i>🏠</i> Trang Chủ
+    </a>
+
+    <!-- Form Container -->
+    <div class="form-container">
+        <h1>Đăng Tin Tức Mới</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Đăng Tin</button>
+        </form>
+    </div>
+</body>
+</html>

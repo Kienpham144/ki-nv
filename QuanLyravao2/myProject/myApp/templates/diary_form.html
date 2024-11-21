@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Đăng Ký Ra Vào Doanh Trại{% endblock %}
+
+{% block content %}
+
+<section id="dangky" class="card">
+    <h2>Đăng Ký Ra Vào Doanh Trại</h2>
+
+    <!-- Hiển thị thông báo nếu có -->
+    {% if messages %}
+    <div class="messages">
+        <ul>
+            {% for message in messages %}
+                <li class="{% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <!-- dangky_form.html -->
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ form}}
+        <button type="submit" class="btn btn-primary">Đăng ký</button>
+    </form>
+
+</section>
+{% endblock %}
+
+

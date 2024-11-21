@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hướng Dẫn Đăng Ký Ra Vào Doanh Trại</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a5d1a;
+            --secondary-color: #3a7d44;
+            --accent-color: #f0f7da;
+            --text-color: #333;
+            --light-text: #f4f4f4;
+            --background-color: #ebf0e6;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-color);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .lead {
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .instructions {
+            counter-reset: step;
+        }
+
+        .instruction-step {
+            background-color: var(--accent-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            transition: background-color 0.3s ease;
+        }
+
+        .instruction-step:hover {
+            background-color: #e6f0c3;
+        }
+
+        .instruction-step::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .instruction-step h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        ul {
+            padding-left: 1.5rem;
+        }
+
+        .alert {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffeeba;
+            padding: 1rem;
+            margin-top: 2rem;
+            border-radius: 4px;
+        }
+
+        .alert h4 {
+            color: #856404;
+            margin-top: 0;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .instruction-step::before {
+                left: 50%;
+                top: -15px;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="fade-in">Hướng Dẫn Đăng Ký Ra Vào Doanh Trại</h1>
+        
+        <div class="card fade-in">
+            <p class="lead">Chào mừng bạn đến với hệ thống đăng ký ra vào doanh trại. Để đảm bảo an ninh và tổ chức tốt việc ra vào doanh trại, bạn cần thực hiện các bước đăng ký khi có nhu cầu ra khỏi doanh trại.</p>
+        </div>
+
+        <div class="instructions">
+            <h3><i class="fas fa-clipboard-list"></i> Các Bước Đăng Ký Ra Vào:</h3>
+            
+            <div class="instruction-step fade-in">
+                <h4>Đăng nhập hệ thống</h4>
+                <p>Để bắt đầu, bạn cần đăng nhập vào tài khoản cá nhân của mình. Nếu chưa có tài khoản, vui lòng tạo tài khoản mới.</p>
+            </div>
+
+            <div class="instruction-step fade-in">
+                <h4>Truy cập trang đăng ký</h4>
+                <p>Sau khi đăng nhập thành công, bạn sẽ thấy mục "Đăng ký ra vào doanh trại" ngay trên trang chủ. Nhấn vào mục này để vào trang đăng ký.</p>
+            </div>
+
+            <div class="instruction-step fade-in">
+                <h4>Điền đầy đủ thông tin vào biểu mẫu</h4>
+                <p>Trong trang đăng ký, bạn cần điền thông tin vào các trường sau:</p>
+                <ul>
+                    <li>Họ và tên</li>
+                    <li>Đơn vị</li>
+                    <li>Cấp bậc</li>
+                    <li>Chức vụ</li>
+                    <li>Nơi đi</li>
+                    <li>Lý do</li>
+                    <li>Thời gian ra</li>
+                    <li>Thời gian trở lại</li>
+                </ul>
+            </div>
+
+            <div class="instruction-step fade-in">
+                <h4>Kiểm tra và gửi thông tin</h4>
+                <p>Sau khi điền đầy đủ thông tin, kiểm tra lại các dữ liệu đã nhập. Nếu đúng, nhấn nút "Gửi Đăng Ký" để gửi yêu cầu ra ngoài.</p>
+            </div>
+
+            <div class="instruction-step fade-in">
+                <h4>Xác nhận và theo dõi trạng thái đăng ký</h4>
+                <p>Sau khi gửi yêu cầu, bạn sẽ nhận được thông báo xác nhận. Đơn vị quản lý sẽ kiểm tra và duyệt yêu cầu của bạn. Bạn có thể theo dõi trạng thái của đăng ký trong mục "Lịch sử đăng ký".</p>
+            </div>
+        </div>
+
+        <div class="alert fade-in">
+            <h4><i class="fas fa-exclamation-circle"></i> Lưu Ý:</h4>
+            <ul>
+                <li>Hãy điền chính xác thông tin để tránh bị từ chối yêu cầu.</li>
+                <li>Nếu cần hỗ trợ, vui lòng liên hệ với bộ phận quản lý doanh trại.</li>
+            </ul>
+        </div>
+
+        <p class="text-center fade-in">Chúc bạn một chuyến đi an toàn và quay lại đúng giờ!</p>
+
+        <div class="text-center fade-in">
+            <a href="{% url 'home' %}" class="btn"><i class="home"></i> Quay lại Trang Chủ</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                    }
+                });
+            });
+
+            fadeElements.forEach(el => {
+                el.style.opacity = 0;
+                el.style.transition = 'opacity 0.5s ease-out';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

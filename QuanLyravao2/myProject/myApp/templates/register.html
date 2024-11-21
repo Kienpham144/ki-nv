@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Đăng Ký Ra Vào Doanh Trại{% endblock %}
+
+{% block content %}
+<section id="register" class="card">
+    <h2>Đăng Ký Ra Vào Doanh Trại</h2>
+
+    <!-- Hiển thị thông báo lỗi hoặc thành công -->
+    {% if messages %}
+    <div class="messages">
+        <ul>
+            {% for message in messages %}
+                <li class="alert {{ message.tags }}">
+                    <i class="fa fa-info-circle"></i> {{ message }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <!-- Form đăng ký -->
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Đăng ký</button>
+    </form>
+</section>
+{% endblock %}

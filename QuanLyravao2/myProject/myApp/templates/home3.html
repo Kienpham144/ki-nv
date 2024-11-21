@@ -1,0 +1,379 @@
+{% extends 'base3.html' %}
+
+{% block title %}Trang Chủ{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Chủ - Hệ Thống Đăng Ký Ra Vào Doanh Trại</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        header {
+            background-color: #1a5d1a;
+            color: white;
+            padding: 1rem;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+        }
+        .logo img {
+            height: 60px;
+            margin-right: 10px;
+        }
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            gap: 1rem;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        h1 {
+            text-align: center;
+            color: #1a5d1a;
+            margin: 2rem 0;
+            text-transform: uppercase;
+        }
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            padding: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            border: 2px solid #1a5d1a;
+            text-align: center;
+        }
+        .card h2 {
+            color: #1a5d1a;
+            text-transform: uppercase;
+        }
+        .card a.button {
+            display: inline-block   ;
+            padding: 0.5rem 1rem;
+            background-color: #1a5d1a;
+            color: white;
+            text-decoration: none;
+            border-radius: 0.25rem;
+            margin-top: 1rem;
+        }
+
+        .card a.button:hover {
+            background-color: #155d15;
+        }
+        
+        .carousel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }   
+
+            .carousel img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;  /* Thay đổi từ 'cover' thành 'contain' */
+        position: absolute;
+        opacity: 0; 
+        transition: opacity 0.5s ease-in-out;
+        }
+
+        .carousel img.active {
+            opacity: 1;
+        }
+
+            
+            .carousel-button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(85, 81, 81, 0.493);
+        color: white;
+        border: none;
+        font-size: 1.8rem;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        border-radius: 50%;
+        transition: background-color 0.3s ease;
+    }
+
+        .carousel-button.prev {
+            left: -1px; /* Điều chỉnh vị trí sang bên ngoài hình ảnh một chút */
+        }
+
+        .carousel-button.next {
+            right: -1px; /* Điều chỉnh vị trí sang bên ngoài hình ảnh một chút */
+        }
+
+
+
+
+        .messages {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    width: 90%;
+    max-width: 600px;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+
+.messages ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.messages .alert {
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 3px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.messages .alert.success {
+    background-color: #28a745; /* Màu xanh lá cho thông báo thành công */
+}
+
+.messages .alert.error {
+    background-color: #dc3545; /* Màu đỏ cho thông báo lỗi */
+}
+
+.messages .alert i {
+    margin-right: 10px;
+}
+
+
+    </style>
+
+
+
+{% if messages %}
+<body>
+    <div class="messages">
+        <ul>
+            {% for message in messages %}
+                <li class="alert {{ message.tags }}" id="success-message">
+                    <i class="fa fa-check-circle"></i> <!-- Biểu tượng thông báo -->
+                    {{ message }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <script type="text/javascript">
+        // Hãy ẩn thông báo sau 5 giây (5000 ms)
+        setTimeout(function() {
+            var messageElement = document.querySelector('.messages');
+            if (messageElement) {
+                messageElement.style.display = 'none';
+            }
+        }, 5000);
+    </script>  
+</body>
+{% endif %}
+
+
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Logo_TSQTT.png/329px-Logo_TSQTT.png" alt="Logo">
+                HỆ THỐNG ĐĂNG KÝ RA VÀO DOANH TRẠI
+            </a>
+            <ul>
+                <li>
+                    <a href="{% url 'home' %}">
+                        <i class="fas fa-home"></i> Trang Chủ
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'login' %}">
+                        <i class="fas fa-sign-in-alt"></i> Đăng Xuất
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="fas fa-info-circle"></i> Thông tin
+                    </a>
+                </li>
+                <ul>
+                    <li id="user-icon">
+                        <i class="fas fa-user-circle"></i> {{ request.user.username }}
+                    </li>
+                </ul>
+                
+                <script>
+                    // Danh sách biểu tượng Font Awesome
+                    const icons = [
+                    "fas fa-user-circle", "fas fa-user-alt", "fas fa-user-tie", "fas fa-users", "fas fa-user-shield",
+        "fas fa-user-secret", "fas fa-id-badge", "fas fa-user-ninja", "fas fa-user-astronaut", "fas fa-user-doctor",
+        "fas fa-user-cog", "fas fa-user-edit", "fas fa-user-injured", "fas fa-user-lock", "fas fa-user-md",
+        "fas fa-user-minus", "fas fa-user-plus", "fas fa-user-times", "fas fa-users-cog", "fas fa-user-graduate",
+        "fas fa-user-hacker", "fas fa-user-headset", "fas fa-user-helmet-safety", "fas fa-user-hospital", 
+        "fas fa-user-md-chat", "fas fa-user-priest", "fas fa-user-robot", "fas fa-user-sailboat", "fas fa-user-slash",
+        "fas fa-user-video", "fas fa-user-alt-slash", "fas fa-user-chart", "fas fa-user-clock", "fas fa-user-cog",
+        "fas fa-user-graduate", "fas fa-user-plus", "fas fa-user-gear", "fas fa-user-lock", "fas fa-user-location",
+        "fas fa-user-md", "fas fa-user-suitcase", "fas fa-user-astronaut", "fas fa-user-business", "fas fa-user-friends",
+        "fas fa-user-home", "fas fa-user-music", "fas fa-user-nurse", "fas fa-user-pilot", "fas fa-user-school",
+        "fas fa-user-trophy"
+                    ];
+                
+                    // Chọn ngẫu nhiên một biểu tượng
+                    const randomIcon = icons[Math.floor(Math.random() * icons.length)];
+                
+                    // Cập nhật biểu tượng của người dùng trong HTML
+                    document.getElementById('user-icon').innerHTML = `<i class="${randomIcon}"></i> ${'{{ request.user.username }}'}`;
+                </script>
+            </ul>
+        </nav>
+    </header>
+
+    <h1>Chào Mừng Đến Với Trang Chủ Hệ Thống</h1>
+
+    <div class="card-container">
+        <div class="card">
+            <div class="carousel">
+                <img src="https://www.prime.vn/storage/project/59a933b3995069.6482381620170901101723.jpeg" alt="Đăng Ký Ra Vào" class="active">
+                <img src="" alt="Đăng Ký Ra Vào">
+                <img src="" alt="Đăng Ký Ra Vào">
+                <button class="carousel-button prev">&lt;</button>
+                <button class="carousel-button next">&gt;</button>
+            </div>
+            <h2>Đăng Ký Ra Vào Doanh Trại</h2>
+            <p>Hệ thống quản lý ra vào doanh trại giúp bạn dễ dàng theo dõi và quản lý các hoạt động ra vào của các học viên, cán bộ trong đơn vị.</p>
+            <a href="{%url 'register'%}" class="button">Đăng ký ra vào</a>
+        </div>
+
+        <div class="card">
+            <div class="carousel">
+                <img src="https://img.baocaovien.vn///MediaUpload/Org/2024/07/30/A00230072024.jpg" alt="Danh sách đăng ký" class="active">
+                <img src="https://images.kienthuc.net.vn/zoomh/800/uploaded/ctvquansu/2020_09_10/vn/trang-bi-tung-buoc-hien-dai-cua-chien-si-bo-binh-quan-doi-viet-nam-Hinh-4.jpg" alt="Danh sách đăng ký">
+                <img src="https://images.kienthuc.net.vn/zoomh/800/uploaded/ctvquansu/2020_09_10/vn/trang-bi-tung-buoc-hien-dai-cua-chien-si-bo-binh-quan-doi-viet-nam-Hinh-5.jpg" alt="Danh sách đăng ký">
+                <button class="carousel-button prev">&lt;</button>
+                <button class="carousel-button next">&gt;</button>
+            </div>
+            <h2>Danh sách lịch sử đăng kí</h2>
+            <p>Hệ thống quản lý ra vào doanh trại giúp bạn dễ dàng theo dõi và quản lý các hoạt động ra vào của các học viên, cán bộ trong đơn vị.</p>
+            <a href="{%url 'waiting'%}" class="button">Xem kết quả phê duyệt</a>
+        </div>
+
+        <div class="card">
+            <div class="carousel">
+                <img src="https://file3.qdnd.vn/data/images/0/2024/11/11/upload_2058/7.jpg?dpi=150&quality=100&w=870" alt="Hướng dẫn" class="active">
+                <img src="https://images.kienthuc.net.vn/zoomh/800/uploaded/ctvquansu/2020_09_10/vn/trang-bi-tung-buoc-hien-dai-cua-chien-si-bo-binh-quan-doi-viet-nam-Hinh-2.jpg" alt="Hướng dẫn">
+                <img src="https://file.qdnd.vn/data/images/0/2020/08/31/nguyenthao/bo%20doi%20cong%20binh.jpg?dpi=150&quality=100&w=575" alt="Hướng dẫn">
+                <button class="carousel-button prev">&lt;</button>
+                <button class="carousel-button next">&gt;</button>
+            </div>
+            <h2>Hướng dẫn đăng ký ra vào </h2>
+            <p>Hãy xem hướng dẫn để biết chi tiết các thủ tục đăng ký và cách thức phê duyệt ra vào doanh trại.</p>
+            <a href="{%url 'register_guide'%}" class="button">Xem hướng dẫn</a>
+        </div>
+
+        <div class="card">
+            <div class="carousel">
+                <img src="https://bcp.cdnchinhphu.vn/thumb_w/777/334894974524682240/2023/9/8/4-5-1694158764636653443985.jpg" alt="Nội quy ra ngoài" class="active">
+                <img src="https://danviet.mediacdn.vn/296231569849192448/2023/8/4/2-16911304736601055383623.jpg" alt="Nội quy ra ngoài">
+                <img src="https://imagev3.vietnamplus.vn/h600/Uploaded/2024/xpcwvovt/2020_07_23/ttxvn_ten_lua_1.jpg.webp" alt="Nội quy ra ngoài">
+                <button class="carousel-button prev">&lt;</button>
+                <button class="carousel-button next">&gt;</button>
+            </div>
+            <h2>Nội quy ra ngoài</h2>
+            <p>Đồng chí hãy xem nội quy ra vào doanh trại trước khi đăng ký ra vào doanh trại.</p>
+            <a href="{%url 'rules'%}" class="button">Xem nội quy</a>
+        </div>
+
+        <div class="card">
+            <div class="carousel">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Logo_of_the_People%27s_Army_Newspaper_%28B%C3%A1o_Qu%C3%A2n_%C4%91%E1%BB%99i_nh%C3%A2n_d%C3%A2n%29.svg/512px-Logo_of_the_People%27s_Army_Newspaper_%28B%C3%A1o_Qu%C3%A2n_%C4%91%E1%BB%99i_nh%C3%A2n_d%C3%A2n%29.svg.png" alt="Tin tức" class="active">
+                <img src="" alt="Tin tức">
+                <img src="https://scontent.fhan3-3.fna.fbcdn.net/v/t39.30808-6/453065964_930023882471364_1632090542704673613_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=Tt2jYJtyEHsQ7kNvgG8IDU2&_nc_zt=23&_nc_ht=scontent.fhan3-3.fna&_nc_gid=A42lXPlP5U8WRcD5dozA6np&oh=00_AYDH0xsUTps7Ui66K3mfKRtdcoG0Lzz22CRyfAqH9brt0g&oe=673D3973" alt="Tin tức">
+                <button class="carousel-button prev">&lt;</button>
+                <button class="carousel-button next">&gt;</button>
+            </div>
+            <h2>Tin tức</h2>
+            <p>Đồng chí hãy xem nội quy ra vào doanh trại trước khi đăng ký ra vào doanh trại.</p>
+            <a href="{%url 'news'%}" class="button">Xem tin tức</a>
+        </div>
+
+        <div class="card">
+            <div class="carousel">
+                <img src="https://quankhu2.vn/wp-content/uploads/2024/04/1-316-1LOGO-750x500.jpg" alt="Trò chơi" class="active">
+                <img src="" alt="Trò chơi">
+                <button class="carousel-button prev">&lt;</button>
+                <button class="carousel-button next">&gt;</button>
+            </div>
+
+
+           
+            <h2>Trò chơi</h2>
+            <p>Đồng chí hãy xem nội quy ra vào doanh trại trước khi đăng ký ra vào doanh trại.</p>
+            <a href="{%url 'game'%}" class="button">Chơi trò chơi</a>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.carousel').forEach(carousel => {
+            const images = carousel.querySelectorAll('img');
+            const prevButton = carousel.querySelector('.prev');
+            const nextButton = carousel.querySelector('.next');
+            let currentIndex = 0;
+
+            function showImage(index) {
+                images.forEach(img => img.classList.remove('active'));
+                images[index].classList.add('active');
+            }
+
+            function nextImage() {
+                currentIndex = (currentIndex + 1) % images.length;
+                showImage(currentIndex);
+            }
+
+            function prevImage() {
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                showImage(currentIndex);
+            }
+
+            prevButton.addEventListener('click', prevImage);
+            nextButton.addEventListener('click', nextImage);
+
+            setInterval(nextImage, 5000); // Auto-advance every 5 seconds
+        });
+    </script>
+</body>
+</html>
+{% endblock %}

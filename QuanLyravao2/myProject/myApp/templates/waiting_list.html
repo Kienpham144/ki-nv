@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Trang Chủ{% endblock %}
+
+{% block content %}
+<h1 style="text-align: center; color: #1a5d1a; margin-bottom: 2rem; text-transform: uppercase;">Đây Là Danh Sách Đăng Kí</h1>
+<div class="card-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+    <table class="table">
+        <caption></caption>
+        <thead>
+          <tr>
+            <th scope="col">Ngày Đăng Ký</th>
+            <th scope="col">Họ Và Tên</th>
+            <th scope="col">Đơn Vị</th>
+            <th scope="col">Lý Do</th>
+            <th scope="col">Thời Gian Ra</th>
+            <th scope="col">Thời Gian Vào</th>
+            <th scope="col">Trạng Thái</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if Waiting_list%}
+            {% for item in Waiting_list %}
+              <tr>
+                <td>{{item.Ngay_dang_ky}}</td>
+                <td>{{item.Ten}}</td>
+                <td>{{item.Don_vi}}</td>
+                <td>{{item.Ly_do}}</td>
+                <td>{{item.Thoigian_ra}}</td>
+                <td>{{item.Thoigian_vao}}</td>
+                {% if item.Phe_duyet is True %}
+                  <td>Đã Phê Duyệt</td>
+                {% else %}
+                  <td>Không phê duyệt</td>
+                {% endif %}
+              </tr>
+            {% endfor %}
+          {% endif %}
+        </tbody>
+      </table>
+
+</div>
+{% endblock content %}
